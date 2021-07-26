@@ -10,10 +10,12 @@
 /users/:id -> See user
 /users/logout -> Log Out
 /users/edit -> Edit My Profile
-/users/delete -> Delete user
+/users/remove -> Remove user
 
 ✅Video Router
 /videos/:id -> Watch Video
 /videos/:id/edit -> Edit Video
 /videos/:id/delete -> Delete Video
 /videos/upload -> Upload Video
+
+(\\d+)
