@@ -29,7 +29,7 @@ export const postJoin = async (req, res) => {
       password,
       location,
     });
-    return res.redirect("login");
+    return res.redirect("/login");
   } catch (error) {
     console.log(error);
     return (
