@@ -1,4 +1,4 @@
-extends base
+extends ../base
 block content 
     if errorMessage
         span=errorMessage
@@ -6,6 +6,8 @@ block content
         input(name="username",type="text", required,placeholder="User Name")
         input(name="password", type="password", required,placeholder="Password")
         input(type="submit", value="Log In")
+        br
+        a(href="/users/github/start") Github Login
     hr
     div 
         span 계정이 없으신가요?
