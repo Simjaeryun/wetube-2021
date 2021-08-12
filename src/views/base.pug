@@ -3,6 +3,7 @@ html(lang="ko")
     head 
         title #{pageTitle} | Wetube
         link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+        link(rel="stylesheet", href="/assets/css/styles.css")
     body 
         header 
             h1=pageTitle
@@ -13,6 +14,8 @@ html(lang="ko")
                     if loggedIn
                         li 
                             a(href="/users/edit") Edit Profile
+                        li 
+                            a(href=`/users/${loggedInUser._id}`) My Profile
                         li 
                             a(href="/users/logout") Log Out
                         li 
