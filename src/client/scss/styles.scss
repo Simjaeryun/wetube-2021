@@ -1,6 +1,38 @@
-@import "./_variables";
+//config
+
+@import "./config/variables";
+@import "./config/reset";
+
+//Component
+
+@import "./component/header.scss";
+@import "./component/footer.scss";
+@import "./component/video.scss";
+@import "./component/shared.scss";
+@import "./component/forms.scss";
+@import "./component/social-login.scss";
+
+//screens
+@import "./screens/home.scss";
+@import "./screens/search.scss";
+@import "./screens/edit-profile.scss";
+@import "./screens/profile.scss";
+//Defaults
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
 body {
-  background-color: $skyblue;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: $bg;
   color: #fff;
+}
+
+main {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 50px;
 }
