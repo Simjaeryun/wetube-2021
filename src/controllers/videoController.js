@@ -1,5 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
+import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   try {
@@ -33,6 +34,7 @@ export const getEdit = async (req, res) => {
   const video = await Video.findById(id);
   try {
     if (String(video.owner) !== String(_id)) {
+      req.flash("error", "You are not the the owner of the video.");
       return res.status(403).redirect("/");
     }
     return res.render("videos/edit", {
@@ -59,6 +61,7 @@ export const postEdit = async (req, res) => {
   if (String(videoModified.owner) !== String(video._id)) {
     return res.status(403).redirect("/");
   }
+  req.flash("succes", "Canges saved");
   return res.redirect(`/videos/${id}`);
 };
 
@@ -129,4 +132,26 @@ export const search = async (req, res) => {
     pageTitle: `Search for ${keyword}`,
     videos,
   });
+};
+
+export const createComment = async (req, res) => {
+  const {
+    session: { user },
+    body: { text },
+    params: { id },
+  } = req;
+
+  const video = await Video.findById(id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  const comment = await Comment.create({
+    text,
+    owner: user._id,
+    video: id,
+  });
+
+  return res.sendStatus(201);
 };
