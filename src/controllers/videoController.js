@@ -15,7 +15,8 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const id = req.params.id;
-  const video = await Video.findById(id).populate("owner");
+  const video = await Video.findById(id).populate("owner").populate("comments");
+  console.log(video);
   try {
     return res.render("videos/watch", {
       pageTitle: video.title,
@@ -134,6 +135,19 @@ export const search = async (req, res) => {
   });
 };
 
+// Register
+export const registerView = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.meta.views = video.meta.views + 1;
+  await video.save();
+  return res.sendStatus(200);
+};
+
+// Comment
 export const createComment = async (req, res) => {
   const {
     session: { user },
@@ -152,6 +166,20 @@ export const createComment = async (req, res) => {
     owner: user._id,
     video: id,
   });
+  video.comments.push(comment._id);
+  video.save();
+  return res.status(201).json({ newCommentId: comment._id });
+};
 
+export const deleteComment = async (req, res) => {
+  const {
+    body: { commentId },
+  } = req;
+  const comment = await Comment.findById(commentId);
+  console.log(commentId);
+  if (!comment) {
+    return res.sendStatus(404);
+  }
+  await Comment.findByIdAndDelete(commentId);
   return res.sendStatus(201);
 };
