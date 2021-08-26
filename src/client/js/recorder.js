@@ -53,22 +53,32 @@ const handleStop = () => {
 };
 
 const handleStart = () => {
-  startBtn.innerText = "Stop Recording";
+  startBtn.innerText = "Recording";
+  startBtn.disabled = true;
   startBtn.removeEventListener("click", handleStart);
-  startBtn.addEventListener("click", handleStop);
-  recorder = new MediaRecorder(stream);
-  recorder.ondataavailable = (e) => {
-    console.log(e.data);
-    videoFile = URL.createObjectURL(e.data);
+  recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+  recorder.ondataavailable = (event) => {
+    videoFile = URL.createObjectURL(event.data);
     video.srcObject = null;
     video.src = videoFile;
+    video.loop = true;
     video.play();
+    startBtn.innerText = "Download";
+    startBtn.disabled = false;
+    startBtn.addEventListener("click", handleDownload);
   };
   recorder.start();
+  setTimeout(() => {
+    recorder.stop();
+  }, 5000);
 };
 
 const init = async () => {
   stream = await navigator.mediaDevices.getUserMedia({
+    video: {
+      width: 1024,
+      height: 576,
+    },
     audio: true,
   });
   video.srcObject = stream;
