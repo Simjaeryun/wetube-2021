@@ -69,6 +69,10 @@ export const postEdit = async (req, res) => {
 export const getUpload = (req, res) => {
   res.header("Cross-Origin-Embedder-Policy", "require-corp");
   res.header("Cross-Origin-Opener-Policy", "same-origin");
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://sims-wetube.herokuapp.com"
+  );
   return res.render("videos/upload", { pageTitle: "Upload Video" });
 };
 
