@@ -35,7 +35,7 @@ app.use(localsMiddleware);
 
 app.use((req, res, next) => {
   res.header("Cross-Origin-Embedder-Policy", "require-corp");
-  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  res.header("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
   next();
 });
 app.use(
@@ -46,13 +46,6 @@ app.use(
 app.use("/assets", express.static("assets"));
 app.use("/uploads", express.static("uploads"));
 app.use("/api", apiRouter);
-
-app.use((req, res, next) => {
-  res.header("Cross-Origin-Embedder-Policy", "unsafe-none");
-  res.header("Cross-Origin-Opener-Policy", "unsafe-none");
-  next();
-});
-
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
