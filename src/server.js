@@ -36,7 +36,7 @@ app.use(localsMiddleware);
 app.use((req, res, next) => {
   res.header("Cross-Origin-Embedder-Policy", "require-corp");
   res.header("Cross-Origin-Opener-Policy", "same-origin");
-  res.header("Cross-Origin-Resource-Policy", "same-site");
+  res.header("Access-Control-Allow-Origin", "*");
   next();
 });
 app.use(
