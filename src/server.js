@@ -33,15 +33,6 @@ app.use(
 app.use(flash());
 app.use(localsMiddleware);
 
-app.use((req, res, next) => {
-  res.header("Cross-Origin-Embedder-Policy", "require-corp");
-  res.header("Cross-Origin-Opener-Policy", "same-origin");
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://sims-wetube.herokuapp.com"
-  );
-  next();
-});
 app.use(
   "/assets",
   express.static("assets"),
