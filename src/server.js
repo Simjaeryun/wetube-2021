@@ -46,6 +46,13 @@ app.use(
 app.use("/assets", express.static("assets"));
 app.use("/uploads", express.static("uploads"));
 app.use("/api", apiRouter);
+
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "unsafe-none");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
+
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
