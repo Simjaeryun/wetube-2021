@@ -49,7 +49,7 @@ app.use("/api", apiRouter);
 
 app.use((req, res, next) => {
   res.header("Cross-Origin-Embedder-Policy", "unsafe-none");
-  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  res.header("Cross-Origin-Opener-Policy", "unsafe-none");
   next();
 });
 
